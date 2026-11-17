@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="theme-color" content="#f7f8fa" />
+		<meta
+			name="description"
+			content="NexLink Lite — send files to your devices, even when they're offline."
+		/>
+		<title>NexLink — Remote file drop</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="shell">
+			<aside class="sidebar">
+				<a class="brand" href="#top" aria-label="NexLink home"
+					><span class="brand-mark"
+						><svg viewBox="0 0 32 32" aria-hidden="true">
+							<path d="M9 10.5 16 6l7 4.5v11L16 26l-7-4.5z" />
+							<path d="m9 10.5 7 4.4 7-4.4M16 15v11" /></svg></span
+					><span>NexLink<span class="brand-lite"> Lite</span></span></a
+				>
+				<div class="side-label">WORKSPACE</div>
+				<a class="nav-item active" href="#send"
+					><span class="nav-icon">↥</span> Send files</a
+				>
+				<a class="nav-item" href="#transfers"
+					><span class="nav-icon">◷</span> Transfers</a
+				>
+				<div class="sidebar-bottom">
+					<div class="secure-note">
+						<span class="secure-dot"></span>
+						<div>
+							<strong>Private by design</strong
+							><small>Your own transfer space</small>
+						</div>
+					</div>
+					<div class="version">NEXLINK LITE · MVP</div>
+				</div>
+			</aside>
+			<main class="main" id="top">
+				<header class="topbar">
+					<div class="mobile-brand">NexLink<span> Lite</span></div>
+					<div class="topbar-right">
+						<span class="server-indicator"><i></i> Server connected</span
+						><button
+							class="icon-button"
+							id="refreshBtn"
+							title="Refresh transfers"
+							aria-label="Refresh transfers"
+						>
+							↻
+						</button>
+					</div>
+				</header>
+				<section class="welcome">
+					<div>
+						<div class="eyebrow">FILE BRIDGE</div>
+						<h1>Move files.<br /><span>Without the wait.</span></h1>
+						<p class="intro">
+							Send files to your Ubuntu computer from anywhere. They'll be
+							waiting when it comes online.
+						</p>
+					</div>
+					<div class="hero-art" aria-hidden="true">
+						<div class="art-orbit orbit-one"></div>
+						<div class="art-orbit orbit-two"></div>
+						<div class="art-cloud">↗</div>
+						<div class="art-device">▱</div>
+						<span class="art-spark spark-one">✳</span
+						><span class="art-spark spark-two">·</span>
+					</div>
+				</section>
+				<section class="content-grid" id="send">
+					<div class="panel upload-panel">
+						<div class="panel-heading">
+							<div>
+								<div class="eyebrow">NEW TRANSFER</div>
+								<h2>Send to your computer</h2>
+							</div>
+							<span class="step-pill">01 <span> / 02</span></span>
+						</div>
+						<div
+							class="dropzone"
+							id="dropzone"
+							tabindex="0"
+							role="button"
+							aria-label="Choose or drop a file"
+						>
+							<input id="fileInput" type="file" hidden />
+							<div class="upload-icon">
+								<svg viewBox="0 0 48 48" aria-hidden="true">
+									<path
+										d="M24 31V9m0 0-8 8m8-8 8 8M10 29v9a3 3 0 0 0 3 3h22a3 3 0 0 0 3-3v-9"
+									/>
+								</svg>
+							</div>
+							<h3>Drop your file here</h3>
+							<p>
+								or
+								<button class="text-button" id="browseBtn" type="button">
+									browse files
+								</button>
+								from your computer
+							</p>
+							<span class="file-limit" id="fileLimit"
+								>Up to 100 MB per file</span
+							>
+						</div>
+						<div class="selected-file hidden" id="selectedFile">
+							<div class="file-type" id="fileType">FILE</div>
+							<div class="file-meta">
+								<strong id="fileName">filename.pdf</strong
+								><span id="fileSize">0 KB</span>
+							</div>
+							<button
+								class="remove-file"
+								id="removeFile"
+								aria-label="Remove selected file"
+							>
+								×
+							</button>
+						</div>
+						<div class="key-field">
+							<label for="uploadKey">Your upload key</label>
+							<div class="key-input-wrap">
+								<span class="key-lock">⌑</span
+								><input
+									id="uploadKey"
+									type="password"
+									placeholder="Paste your private upload key"
+									autocomplete="off"
+								/><button
+									id="toggleKey"
+									type="button"
+									class="reveal-key"
+									aria-label="Show upload key"
+								>
+									Show
+								</button>
+							</div>
+							<small
+								>Use the UPLOAD_KEY from your server's .env file. It is not
+								saved.</small
+							>
+						</div>
+						<button class="primary-button" id="sendBtn" disabled>
+							<span>Send file</span><span class="button-arrow">↗</span>
+						</button>
+						<div class="upload-progress hidden" id="uploadProgress">
+							<div class="progress-top">
+								<span id="progressLabel">Uploading…</span
+								><span id="progressPercent">0%</span>
+							</div>
+							<div class="progress-track"><div id="progressBar"></div></div>
+						</div>
+						<div
+							class="notice"
+							id="notice"
+							role="status"
+							aria-live="polite"
+						></div>
+					</div>
+					<aside class="right-column">
+						<div class="panel device-panel">
+							<div class="panel-heading">
+								<div>
+									<div class="eyebrow">DESTINATION</div>
+									<h2>Your Ubuntu PC</h2>
+								</div>
+								<span class="device-icon">⌘</span>
+							</div>
+							<div class="device-status">
+								<span class="status-indicator" id="deviceDot"></span>
+								<div>
+									<strong id="deviceStatus">Waiting for receiver</strong
+									><small id="deviceSubstatus"
+										>Files queue safely while it's offline</small
+									>
+								</div>
+							</div>
+							<div class="device-foot">
+								<span>Automatic delivery</span><strong>ON</strong>
+							</div>
+						</div>
+						<div class="tip-card">
+							<div class="tip-icon">✦</div>
+							<div>
+								<strong>Send now. Receive later.</strong>
+								<p>
+									Your files stay in the queue while your computer is switched
+									off. The receiver collects them when it reconnects.
+								</p>
+							</div>
+						</div>
+					</aside>
+				</section>
+				<section class="transfers-section" id="transfers">
+					<div class="section-heading">
+						<div>
+							<div class="eyebrow">ACTIVITY</div>
+							<h2>Recent transfers</h2>
+						</div>
+						<button class="subtle-button" id="refreshText">Refresh ↻</button>
+					</div>
+					<div class="transfer-list" id="transferList">
+						<div class="empty-state">
+							<div class="empty-symbol">⇄</div>
+							<strong>No transfers yet</strong
+							><span>Your sent files will appear here.</span>
+						</div>
+					</div>
+				</section>
+				<footer>
+					<span>Designed for your devices.</span
+					><span>Files expire automatically · Keep your keys private</span>
+				</footer>
+			</main>
+		</div>
+		<div class="toast" id="toast" role="status" aria-live="polite"></div>
+		<script src="script.js"></script>
+	</body>
+</html>

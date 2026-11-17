@@ -1,0 +1,22 @@
+{
+	"name": "nexlink-server",
+	"version": "1.0.0",
+	"private": true,
+	"description": "NexLink Lite file transfer server",
+	"main": "src/index.js",
+	"scripts": {
+		"setup": "node src/setup.js",
+		"start": "node src/index.js",
+		"dev": "node --watch src/index.js"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"dependencies": {
+		"better-sqlite3": "^11.8.1",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"helmet": "^8.0.0",
+		"multer": "^1.4.5-lts.1"
+	}
+}
